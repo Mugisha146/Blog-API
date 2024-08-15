@@ -1,6 +1,9 @@
+
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import "../styles/App.css";
 
 interface Post {
   id: number;
@@ -8,19 +11,19 @@ interface Post {
   author: string;
 }
 
-const Index: React.FC = () => {
+const Blog: React.FC = () => {
   const [blogs, setblogs] = useState<Post[]>([]);
 
   useEffect(() => {
     axios
-      .get<Post[]>("/api/blogs/")
+      .get<Post[]>("http://127.0.0.1:8000/api/blogs/")
       .then((response) => setblogs(response.data))
       .catch((error) => console.error("Error fetching blogs:", error));
   }, []);
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`/api/blogs/${id}/`);
+      await axios.delete(`http://127.0.0.1:8000/api/blogs/${id}/`);
       setblogs(blogs.filter((post) => post.id !== id));
     } catch (error) {
       console.error("Error deleting post:", error);
@@ -37,7 +40,10 @@ const Index: React.FC = () => {
         {blogs.map((post) => (
           <li key={post.id} className="mt-4">
             {post.title} by {post.author}
-            <Link to={`/edit/${post.id}`} className="text-blue-500 ml-2">
+            <Link
+              to={`http://127.0.0.1:8000/edit/${post.id}`}
+              className="text-blue-500 ml-2"
+            >
               Edit
             </Link>
             <button
@@ -53,4 +59,7 @@ const Index: React.FC = () => {
   );
 };
 
-export default Index;
+export default Blog;
+
+
+

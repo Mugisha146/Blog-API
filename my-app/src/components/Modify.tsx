@@ -20,7 +20,7 @@ const Modify: React.FC<{ isEditing: boolean }> = ({ isEditing }) => {
   useEffect(() => {
     if (isEditing) {
       axios
-        .get<Post>(`/api/blogs/${id}/`)
+        .get<Post>(`http://127.0.0.1:8000/api/blogs/${id}/`)
         .then((response) => setPost(response.data))
         .catch((error) => console.error("Error fetching post:", error));
     }
@@ -30,9 +30,9 @@ const Modify: React.FC<{ isEditing: boolean }> = ({ isEditing }) => {
     e.preventDefault();
     try {
       if (isEditing) {
-        await axios.patch(`/api/blogs/${id}/`, post);
+        await axios.patch(`http://127.0.0.1:8000/api/blogs/${id}/`, post);
       } else {
-        await axios.post("/api/blogs/", post);
+        await axios.post("http://127.0.0.1:8000/api/blogs/", post);
       }
       navigate("/");
     } catch (error) {

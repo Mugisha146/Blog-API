@@ -1,26 +1,15 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import Modify from "./components/Modify";
+import Blog from "../src/components/Blog"; 
 
-function App() {
+const MainApp = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<Blog />} />
+      <Route path="/new" element={<Modify isEditing={false} />} />
+      <Route path="/edit/:id" element={<Modify isEditing={true} />} />
+    </Routes>
   );
-}
+};
 
-export default App;
+export default MainApp;
